@@ -1,0 +1,16 @@
+ribbon.eureka.enabled=false 禁用ribbon，默认是启用的,spring cloud服务中不能关闭
+ribbon-config-demo.ribbon.listOfServers = ip:port,ip:port 关闭了之后需要自己手写各个服务的IP地址以及端口号，ribbon-config-demo是服务名
+
+ribbon-config-demo.ribbon.NFLoadBalancerRuleClassName=com.netflix.loadbalancer.RandomRule 负载均衡策略配置，ribbon-config-demo是服务名
+
+超时时间配置：
+	ribbon.ConnectTimeout=2000 请求连接的超时时间
+	ribbon.ReadTimeout=5000 请求处理的超时时间
+	
+	也可以为每个服务设置不同的超时时间，通过服务名进行指定，ribbon-config-demo代表的是服务名
+	ribbon-config-demo.ribbon.ConnectTimeout=2000 请求连接的超时时间
+	ribbon-config-demo.ribbon.ReadTimeout=5000 请求处理的超时时间
+	
+并发参数配置：
+	ribbon.MaxTotalConnections=500 最大连接数
+	ribbon.MaxConnectionsPerHost=500 每个host最大连接数
