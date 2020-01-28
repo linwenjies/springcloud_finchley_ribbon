@@ -23,4 +23,11 @@ public class RibbonTestController {
 		return restTemplate.getForObject("http://eureka-client/hello/hello", String.class);
 	}
 	
+	@GetMapping("/testRetry")
+	public String testRetry() {
+		return restTemplate.getForObject("http://eureka-client/ribbonTest/testRetry", String.class);
+	}
+	
+	
+	
 }

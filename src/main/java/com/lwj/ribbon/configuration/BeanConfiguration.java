@@ -3,6 +3,7 @@ package com.lwj.ribbon.configuration;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -18,7 +19,12 @@ public class BeanConfiguration {
 	@Bean
 	@LoadBalanced
 	public RestTemplate getRestTemplate() {
-		return new RestTemplate();
+		SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();  
+		requestFactory.setConnectTimeout(500);// 设置超时  
+		requestFactory.setReadTimeout(500);  
+
+		//利用复杂构造器可以实现超时设置，内部实际实现为 HttpClient  
+		return new RestTemplate(requestFactory);
 	}
 	
 }

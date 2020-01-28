@@ -16,8 +16,20 @@ eureka:
     lease-expiration-duration-in-seconds: 5 #server至上一次收到client的心跳之后，等待下一次心跳的超时时间，在这个时间内没有收到下一次心跳则移除这个实例，默认90秒
     preferIpAddress: true
     instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+
+#下面的这种写法是为了不使用feign使用RestTemplate的时候设置的，并且超时等配置是在BeanConfiguration中设置的
+#下面配置的重试策略经过验证是有效的
+eureka-client:
+  ribbon:
+    MaxAutoRetries: 1
+    MaxAutoRetriesNextServer: 1
     
 ribbon:
+  ConnectTimeout: 1000
+  ReadTimeout: 500
   eager-load:
     enabled: true #开启饥饿加载机制
     clients: eureka-client #指定饥饿调用的服务名，多个的话用逗号分隔开
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 0
+  OkToRetryOnAllOperations: true
